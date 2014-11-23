@@ -1,0 +1,24 @@
+{
+    "preset": "google",
+    "maximumLineLength": 120,
+    "disallowSpacesInCallExpression": true,
+    "validateJSDoc": null,
+    "disallowMultipleVarDecl": null,
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "additionalRules": [
+        "node_modules/jscs-jsdoc/lib/rules/*.js"
+    ],
+    "jsDoc": {
+        "enforceExistence": true,
+        "checkParamNames": true,
+        "requireParamTypes": true,
+        "checkRedundantParams": true,
+        "checkReturnTypes": true,
+        "checkRedundantReturns": true,
+        "requireReturnTypes": true,
+        "checkTypes": true,
+        "checkRedundantAccess": true
+    }
+}

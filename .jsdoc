@@ -1,0 +1,38 @@
+{
+  "source": {
+    "include": [
+        "./src"
+    ]
+  },
+  "opts": {
+    "template": "./node_modules/jaguarjs-jsdoc"
+  },
+  "plugins": [ "plugins/markdown" ],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  },
+  "templates": {
+    "applicationName": "Git For The Workflows",
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "default": {
+      "outputSourceFiles" : true
+    },
+    "disqus": "",
+    "googleAnalytics": "",
+    "openGraph": {
+      "title": "",
+      "type": "website",
+      "image": "",
+      "site_name": "",
+      "url": ""
+    },
+    "meta": {
+      "title": "Git For The Workflows",
+      "description": "Basic git commands wrapped in node for using in your workflows",
+      "keyword": "git workflow grunt gulp"
+    },
+    "linenums": true
+  }
+}

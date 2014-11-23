@@ -1,0 +1,12 @@
+./doc
+./out
+./test
+./coverage
+./node_modules
+Gruntfile.js
+.gitignore
+.npmignore
+.jscsrc
+.istanbul.yml
+.eslintrc
+
