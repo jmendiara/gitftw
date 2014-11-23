@@ -1,5 +1,8 @@
 # gitftw - Git For The Workflows
 
+[![Build Status](https://travis-ci.org/jmendiara/gitftw.svg)](https://travis-ci.org/jmendiara/gitftw)
+[![Coverage Status](https://img.shields.io/coveralls/jmendiara/gitftw.svg)](https://coveralls.io/r/jmendiara/gitftw)
+
 Basic git commands wrapped in node for using in your workflows. This includes grunt, gulp,
 your custom scripts, CI, etc...
 
