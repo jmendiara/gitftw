@@ -6,6 +6,8 @@
 Basic git commands wrapped in node for using in your workflows. This includes grunt, gulp,
 your custom scripts, CI, etc...
 
+http://jmendiara.github.io/gitftw/
+
 ## Basic Usage
 ```js
 var git = require('gitftw');
@@ -54,7 +56,7 @@ All the commands can take 2 parameters, an _optional_ `options` literal object,
 and the _optional_ callback. A literal object helps you having configurations 
 in a json, a grunt config,  etc... even in a function! (read below)
 
-More information on implemented commands, please refer to the documentation
+More information on implemented commands, please refer to the [documentation](http://jmendiara.github.io/gitftw/git.html)
 
 ## Knowing what's happening under the hoods
 
