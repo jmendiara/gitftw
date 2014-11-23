@@ -4,6 +4,7 @@
   "description": "Basic git commands wrapped in node for using in your workflows",
   "main": "index.js",
   "scripts": {
+    "travis": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/environment.js test/*.spec.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot test/environment.js test/*.spec.js",
     "doc": "rm -fR ./out ; jsdoc -c .jsdoc README.md",
     "lint": "jscs index.js src && eslint index.js src",
@@ -31,7 +32,9 @@
   ],
   "dependencies": {
     "concat-stream": "^1.4.6",
+    "coveralls": "^2.11.2",
     "eventemitter2": "^0.4.14",
+    "mocha-lcov-reporter": "0.0.1",
     "q": "^1.1.1",
     "which": "^1.0.5"
   },
