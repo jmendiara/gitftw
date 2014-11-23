@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Git For The Workflows</title>
+    
+    <meta name="description" content="Basic git commands wrapped in node for using in your workflows" />
+    
+        <meta name="keywords" content="git workflow grunt gulp" />
+        <meta name="keyword" content="git workflow grunt gulp" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"applicationName":"Git For The Workflows","default":{"outputSourceFiles":true},"disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"Git For The Workflows","description":"Basic git commands wrapped in node for using in your workflows","keyword":"git workflow grunt gulp"},"linenums":true};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Git For The Workflows</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="git">
+            <span class="title">
+                <a href="git.html">git</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="git.events"><a href="git.html#events">events</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="git.add"><a href="git.html#add">add</a></li>
+            
+                <li data-name="git.checkout"><a href="git.html#checkout">checkout</a></li>
+            
+                <li data-name="git.clone"><a href="git.html#clone">clone</a></li>
+            
+                <li data-name="git.command"><a href="git.html#command">command</a></li>
+            
+                <li data-name="git.commit"><a href="git.html#commit">commit</a></li>
+            
+                <li data-name="git.fetch"><a href="git.html#fetch">fetch</a></li>
+            
+                <li data-name="git.getCurrentBranch"><a href="git.html#getCurrentBranch">getCurrentBranch</a></li>
+            
+                <li data-name="git.getTags"><a href="git.html#getTags">getTags</a></li>
+            
+                <li data-name="git.merge"><a href="git.html#merge">merge</a></li>
+            
+                <li data-name="git.pull"><a href="git.html#pull">pull</a></li>
+            
+                <li data-name="git.push"><a href="git.html#push">push</a></li>
+            
+                <li data-name="git.removeLocalTags"><a href="git.html#removeLocalTags">removeLocalTags</a></li>
+            
+                <li data-name="git.removeRemoteTags"><a href="git.html#removeRemoteTags">removeRemoteTags</a></li>
+            
+                <li data-name="git.removeTags"><a href="git.html#removeTags">removeTags</a></li>
+            
+                <li data-name="git.tag"><a href="git.html#tag">tag</a></li>
+            
+                <li data-name="git.version"><a href="git.html#version">version</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li data-name="git#event:command"><a href="git.html#event:command">command</a></li>
+            
+                <li data-name="git#event:result"><a href="git.html#event:result">result</a></li>
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="global.html">Global</h1>
+        
+
+
+
+<section>
+    
+<header>
+    <h2>
+    
+    </h2>
+    
+</header>  
+
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="spawnGit">
+            
+            spawnGit<span class="signature">(args, <span class="optional">cb</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line69">line 69</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Spawns a git process with the provider arguments
+This function is called when you call directly the require of <code>gitftw</code></p>
+<p>If you provide a second parameter</p>
+<p>DISCLAIMER: I've not found any way to document this in jsdoc and this
+template in a proper way. Sorry for the possible missunderstanding</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Resolvable">Resolvable</a></span>
+|
+
+<span class="param-type">Array.&lt;(String|null)></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The arguments to pass to git command</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#callback">callback</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>The execution callback result</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li>event:command the git command executed</li>
+    
+        <li>event:result the result from the command line</li>
+    </ul>
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+
+<h5>Returns:</h5>
+Resolves with the git output
+  Rejects with an invalid/not found git cmd
+  Rejects with an error with the git cmd spawn
+  Rejects with git exits with an error
+<br />
+
+    
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>var git = require('gitftw');
+
+//executes a `git version`
+git(['version'], function(err, data) { console.log(data);});
+//or
+git(['version']).then(console.log);</code></pre>
+    
+
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl>
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="callback">
+            
+            callback<span class="signature">(err, result)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line215">line 215</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>A Typical node callback</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>err</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The error (if any)</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The result of executing the command</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+            
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="command">
+            
+            command<span class="signature">(options)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line213">line 213</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>A gitftw command implementation.</p>
+<p>It only receives as parameter an options object.
+The options object is <a href="global.html#Resolvable"><code>resolved</code></a> before reaching your
+implementation</p>
+<p>The dual exported API (for Promises and node callbacks) is also managed for you.
+Therefore you only have to deal with one paradigm in the implementation: The promises one.
+It's safe to throw errors, and you have to return a promise or a value.</p>
+<p>For most use cases, you dont have to known too much of promises. Probably you will have to
+call the <code>git([arguments])</code> that creates a promise, and you only will have to deal with
+the output parsing and return it</p>
+<p>One extra thing: It must be a named function. The implemented command available in the
+<code>gitftw</code> module, will be that name function.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The options to this command. All its properties are <a href="global.html#Resolvable"><code>Resolvable</code></a></p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+
+<h5>Returns:</h5>
+The execution promise
+<br />
+
+    
+    
+    
+        <h5>Examples</h5>
+        
+
+    
+    <pre class="prettyprint"><code> Creating a command
+
+var git = require('gitftw');
+
+//implement a command as a named function
+function doSomethingAwesome(options) {
+  //All properties in the options object are resolved here.
+  //read the docs about what an *optional* `resolvable` concept is
+  var resolvable = git.getCurrentBranch;
+  //issue a `git awesome master param`
+  return git(['awesome', resolvable, options.name])
+    .then(parseAwesomeCommandResult);
+}
+
+//implement an optional command parsing
+function parseAwesomeCommandResult(res) {
+  var lines = res.split('\n');
+  if (lines[0] !== 'expected result') {
+    //feel free to throw. It will be catched by the
+    //promise engine and rejected or callbacked with err for you
+    throw new Error('unable to parse the awesome');
+  }
+  //If everything goes well, return the command output
+  return lines[1];
+}
+
+//register a command
+git.command(doSomethingAwesome);
+
+//Now it's available in the git module
+git.doSomethingAwesome({
+ //available in the command implementation as options.name
+ name: 'param'
+};</code></pre>
+    
+
+
+    
+    <pre class="prettyprint"><code> Creating commands in your module
+//your custom commands in mycommands.js
+module.exports = function(git) {
+  //doSomethingAwesome is defined elsewhere
+  git.command(doSomethingAwesome);
+
+  //for chainable api: return git itself
+  return git;
+}
+
+//////
+The userland: using your commands
+var git = require('gitftw');
+require('./mycommands')(git)
+
+git.doSomethingAwesome();</code></pre>
+    
+
+    
+</dd>
+
+            
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="Resolvable">Resolvable</h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Resolvable is something that have invariant primitives, including all its properties,
+now or in the future.</p>
+<p>Which things are <em>resolvables</em>?</p>
+<ol>
+<li><p>A String, Number, Boolean primitives: <code>string</code>, 4, true</p>
+</li>
+<li><p>A array of resolvables: <code>['string', resolvable]</code></p>
+</li>
+<li><p>A literal object with resolvables properties: <code>{ foo: 'string', bar: resolvable }</code></p>
+</li>
+<li><p>An object with a <code>toString</code> method</p>
+</li>
+<li><p>An A+ promise (Q, bluebird, native...) that resolves to a resolvable: <code>Promise.when('string')</code></p>
+</li>
+<li><p>A function that returns resolvables <code>function() { return 'string'; }</code></p>
+</li>
+</ol>
+<p><strong>resolvables</strong> are resolved in serie. Once something is resolved, goes to resolve
+the next one. Never in parallel. This avoids race conditions
+in your workflows while maintaining your code clean.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>//Using Q as promise library
+
+var resolvableArray = [
+  'string',
+  Q.when('string'),
+  function() {
+   return 'string';
+  },
+  function() {
+   return Q.when('string');
+  }
+];
+var resolvableObject = {
+ arr: resolvableArray,
+ string: 'string'
+}
+
+//In the future, after resolving it, will become
+var resolvableArray = ['string', 'string', 'string', 'string'];
+var resolvableObject = {
+ arr: ['string', 'string', 'string', 'string'],
+ string: 'string'
+}</code></pre>
+    
+
+    
+</dd>
+
+            </dl>
+    
+    
+    
+</article>
+
+</section>  
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 23 2014 23:31:24 GMT+0100 (CET)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>

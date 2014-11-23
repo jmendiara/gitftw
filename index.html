@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Git For The Workflows</title>
+    
+    <meta name="description" content="Basic git commands wrapped in node for using in your workflows" />
+    
+        <meta name="keywords" content="git workflow grunt gulp" />
+        <meta name="keyword" content="git workflow grunt gulp" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"applicationName":"Git For The Workflows","default":{"outputSourceFiles":true},"disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"Git For The Workflows","description":"Basic git commands wrapped in node for using in your workflows","keyword":"git workflow grunt gulp"},"linenums":true};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Git For The Workflows</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="git">
+            <span class="title">
+                <a href="git.html">git</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="git.events"><a href="git.html#events">events</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="git.add"><a href="git.html#add">add</a></li>
+            
+                <li data-name="git.checkout"><a href="git.html#checkout">checkout</a></li>
+            
+                <li data-name="git.clone"><a href="git.html#clone">clone</a></li>
+            
+                <li data-name="git.command"><a href="git.html#command">command</a></li>
+            
+                <li data-name="git.commit"><a href="git.html#commit">commit</a></li>
+            
+                <li data-name="git.fetch"><a href="git.html#fetch">fetch</a></li>
+            
+                <li data-name="git.getCurrentBranch"><a href="git.html#getCurrentBranch">getCurrentBranch</a></li>
+            
+                <li data-name="git.getTags"><a href="git.html#getTags">getTags</a></li>
+            
+                <li data-name="git.merge"><a href="git.html#merge">merge</a></li>
+            
+                <li data-name="git.pull"><a href="git.html#pull">pull</a></li>
+            
+                <li data-name="git.push"><a href="git.html#push">push</a></li>
+            
+                <li data-name="git.removeLocalTags"><a href="git.html#removeLocalTags">removeLocalTags</a></li>
+            
+                <li data-name="git.removeRemoteTags"><a href="git.html#removeRemoteTags">removeRemoteTags</a></li>
+            
+                <li data-name="git.removeTags"><a href="git.html#removeTags">removeTags</a></li>
+            
+                <li data-name="git.tag"><a href="git.html#tag">tag</a></li>
+            
+                <li data-name="git.version"><a href="git.html#version">version</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            <span class="subtitle">Events</span>
+            
+                <li data-name="git#event:command"><a href="git.html#event:command">command</a></li>
+            
+                <li data-name="git#event:result"><a href="git.html#event:result">result</a></li>
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="index.html">Index</h1>
+        
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article class="readme"><h1>gitftw - Git For The Workflows</h1>
+<p><a href="https://travis-ci.org/jmendiara/gitftw"><img src="https://travis-ci.org/jmendiara/gitftw.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/jmendiara/gitftw"><img src="https://img.shields.io/coveralls/jmendiara/gitftw.svg" alt="Coverage Status"></a></p>
+<p>Basic git commands wrapped in node for using in your workflows. This includes grunt, gulp,
+your custom scripts, CI, etc...</p>
+<h2>Basic Usage</h2>
+<pre><code class="lang-js">var git = require('gitftw');
+
+//Executes locally installed git with the parameters specified as an array
+// &gt; /usr/local/bin/tag 
+git(['tag'], function(err, output) {
+  if (err) {
+    console.error('Command failed with code %d: %s', err.code, err.message);
+    return;
+  }
+  console.log(output); // &quot;'v1.0.0\nv1.0.1\nv1.0.2'&quot; 
+});</code></pre>
+<h2>Commands</h2>
+<p>There are some basic commands implemented for you, in a workflow developer friendly way.</p>
+<pre><code class="lang-js">var git = require('gitftw');
+
+git.pull({
+    remote: 'origin',
+    branch: 'master',
+    rebase: true
+  }, cb);
+
+git.add({
+    files: ['README.md', 'package.json']
+  }, cb);
+
+//removing all local tags
+git.getTags(function (err, tags) {
+  if (err) {
+    return cb(err);
+  }
+  console.log(tags);  //['v1.0.0', 'v1.0.1', 'v1.0.2']
+  git.removeLocalTags({
+      tags: tags
+  }, cb);
+})</code></pre>
+<p>All the commands can take 2 parameters, an <em>optional</em> <code>options</code> literal object, 
+and the <em>optional</em> callback. A literal object helps you having configurations 
+in a json, a grunt config,  etc... even in a function! (read below)</p>
+<p>More information on implemented commands, please refer to the documentation</p>
+<h2>Knowing what's happening under the hoods</h2>
+<p>Yes, it's important to see <em>wat</em> is doing an automated workflow. We have some
+events for you.</p>
+<pre><code class="lang-js">var git = require('gitftw');
+
+//Add a listener to the issued git command. Output it
+git.events.on('command', console.info);
+
+//Add a listener to the result of the git command. Output it with &gt; 
+git.events.on('result', function(res) {
+  console.log('&gt; ' + res.split('\n').join('\n&gt; '))
+});</code></pre>
+<h2>Sugar: Promises</h2>
+<p><code>git</code> and its commands have a <em>dual</em> API, both the node callback style you have seen
+in the examples, and the <code>promise</code> style. <a href="https://github.com/kriskowal/q">Q</a> is used internally as the promises library  </p>
+<pre><code class="lang-js">//removing all local tags
+git.getTags()
+  .tap(console.log) //['v1.0.0', 'v1.0.1', 'v1.0.2']
+  .then(function (tags) {
+    return git.removeLocalTags({
+      tags: tags
+    })
+  });</code></pre>
+<p>Having promises internally and <em>optionally</em> outside simplifies the development of 
+commands to manage concurrency when issuing <code>git</code> commands with a more functional style.</p>
+<p>Why concurrency matters? Not having concurrency accessing 
+the filesystem, where some commands can change its status, is very important for
+a predictable command sequence. Think on how you use git from the command line.
+We wanna make this tool for workflows as much predictable as possible. And the 
+<code>resolvable</code> concept helps on both serialization and functional style development</p>
+<p><em>DISCLAIMER for node fan-boys</em>: frontenders are also developers. And are bored of your <code>if(err) return cb(err);</code> 
+ verbose style. And I've always wanted to code something dual :) </p>
+<h2>Advanced usage: <em>Resolvables</em></h2>
+<p>You can use <code>resolvables</code> things when calling this library methods.
+Resolvable is something that have invariant primitives, including all its properties, 
+now or in the future.</p>
+<p>Which things are <em>resolvables</em>?</p>
+<ol>
+<li><p>A String, Number, Boolean primitives: <code>string</code>, 4, true</p>
+</li>
+<li><p>A array of resolvables: <code>['string', resolvable]</code></p>
+</li>
+<li><p>A literal object with resolvables properties: <code>{ foo: 'string', bar: resolvable }</code></p>
+</li>
+<li><p>An object with a <code>toString</code> method</p>
+</li>
+<li><p>An A+ promise (Q, bluebird, native...) that resolves to a resolvable: <code>Promise.when('string')</code></p>
+</li>
+<li><p>A function that returns resolvables <code>function() { return 'string'; }</code></p>
+</li>
+</ol>
+<p><strong>resolvables</strong> are resolved in serie. Once something is resolved, goes to resolve
+the next one. Never in parallel. This avoids race conditions
+in your workflows while maintaining your code clean. </p>
+<p>It's easier than you think. The above <em>remove all tags</em> example with <strong>resolvables</strong>: </p>
+<pre><code class="lang-js">//removing all local tags
+git.removeLocalTags({
+  tags: git.getTags //Command that returns a promise for an array of strings
+});</code></pre>
+<p><code>git.getTags</code>, as it's used as a function parameter, will be called, resolved and assigned
+ before <code>git.removeLocalTags</code> gets called. </p>
+<p>Take a look to the tests.</p>
+<h2>License</h2>
+<p>MIT</p></article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 23 2014 23:31:24 GMT+0100 (CET)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
