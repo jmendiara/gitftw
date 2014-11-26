@@ -1,11 +1,9 @@
-```js
-var GitWorkflow = require('../index.js'),
+//Mocking only for the example purpose
+require('./mock');
+
+var git = require('../index.js'),
     async = require('async');
 
-
-var git = new GitWorkflow();
-//Mocking only for the example purpose
-git = require('./mock')(git);
 
 //print the executed git commands
 git.events.on('command', console.log);
@@ -13,14 +11,15 @@ git.events.on('command', console.log);
 var remote = 'origin';
 
 /**
- * Creates 2 tags and pushes to remote
+ * Creates the new version tag and pushes to remote
  * @param {Function} cb The result callback
  */
-function createTags(cb) {
+function createTag(cb) {
+  var newTagName = 'v1.0.0';
+
   async.series([
-      async.apply(git.tag, {name: 'foo', message: 'Foo release', annotated: true}),
-      async.apply(git.tag, {name: 'bar', message: 'Bar release'}),
-      async.apply(git.push, {remote: remote, tags: true})
+      async.apply(git.tag, {tag: newTagName, message: newTagName + ' release', annotated: true}),
+      async.apply(git.push, {tag: newTagName, remote: remote})
   ], cb);
 }
 
@@ -35,9 +34,7 @@ function deleteTags(cb) {
       async.waterfall([
         async.apply(git.getTags),
         function(tags, cb) {
-          async.eachSeries(tags, function (tag, cb) {
-            git.removeTag({tag: tag, remote: remote}, cb);
-          }, cb);
+          git.removeTags({tags: tags, remote: remote}, cb);
         }
       ], cb);
     }
@@ -49,8 +46,8 @@ function deleteTags(cb) {
  */
 function doWork(cb) {
   async.series([
-    async.apply(createTags),
-    async.apply(deleteTags)
+    async.apply(deleteTags),
+    async.apply(createTag)
   ], cb);
 }
 
@@ -64,4 +61,3 @@ doWork(function(err) {
   }
   console.log('Done!');
 });
-```
