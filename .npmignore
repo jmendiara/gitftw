@@ -1,12 +1,18 @@
-./doc
-./out
-./test
-./coverage
-./node_modules
+doc/
+out/
+test/
+coverage/
+node_modules/
+.idea/
 Gruntfile.js
 .gitignore
 .npmignore
 .jscsrc
 .istanbul.yml
 .eslintrc
+.travis.yml
+.jsdoc
+CONTRIBUTING.md
+example.js
+
 
