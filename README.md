@@ -11,12 +11,17 @@ your custom scripts, CI, etc...
 
 http://jmendiara.github.io/gitftw/
 
+## Installation
+```sh
+npm install gitftw --save-dev
+```
+
 ## Basic Usage
 ```js
 var git = require('gitftw');
 
 //Executes locally installed git with the parameters specified as an array
-// > /usr/local/bin/tag 
+// > /usr/local/bin/git tag 
 git(['tag'], function(err, output) {
   if (err) {
     console.error('Command failed with code %d: %s', err.code, err.message);
