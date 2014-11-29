@@ -1,7 +1,10 @@
 # gitftw - Git For The Workflows
 
+[![npm version](https://badge.fury.io/js/gitftw.svg)](http://badge.fury.io/js/gitftw)
 [![Build Status](https://travis-ci.org/jmendiara/gitftw.svg)](https://travis-ci.org/jmendiara/gitftw)
 [![Coverage Status](https://img.shields.io/coveralls/jmendiara/gitftw.svg)](https://coveralls.io/r/jmendiara/gitftw)
+[![Dependency Status](https://david-dm.org/jmendiara/gitftw.png)](https://david-dm.org/jmendiara/gitftw)
+[![devDependency Status](https://david-dm.org/jmendiara/gitftw/dev-status.svg)](https://david-dm.org/jmendiara/gitftw#info=devDependencies)
 
 Basic git commands wrapped in node for using in your workflows. This includes grunt, gulp,
 your custom scripts, CI, etc...
