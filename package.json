@@ -34,7 +34,6 @@
     "bluebird": "^2.3.11",
     "concat-stream": "^1.4.6",
     "eventemitter2": "^0.4.14",
-    "q": "^1.1.1",
     "which": "^1.0.5"
   },
   "devDependencies": {
