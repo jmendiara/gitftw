@@ -85,9 +85,10 @@ module.exports = function commonCommands(git) {
 
     var args = [
       'commit',
-      '-m"' + options.message + '"',
       options.force ? '--amend' : null,
-      options.noVerify ? '-n' : null
+      options.noVerify ? '-n' : null,
+      options.message ? '-m' : null,
+      options.message ? options.message : null
     ];
 
     return git(args)
@@ -358,7 +359,8 @@ module.exports = function commonCommands(git) {
       'merge',
       options.noFF ? '--no-ff' : null,
       options.remote ? (options.remote + '/' + options.branch) : options.branch,
-      '-m"' + options.message + '"'
+      '-m',
+      options.message
     ];
 
     return git(args)
@@ -458,8 +460,9 @@ module.exports = function commonCommands(git) {
     var args = [
       'tag',
       options.tag,
-      options.message ? '-m "' + options.message + '"' : null,
-      options.annotated ? '-a' : null
+      options.annotated ? '-a' : null,
+      options.message ? '-m' : null,
+      options.message ? options.message : null
     ];
 
     return git(args)
