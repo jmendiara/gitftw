@@ -21,7 +21,8 @@ describe('merge command', function() {
             'merge',
             '--no-ff',
             'origin/develop',
-            '-m"merge it"'
+            '-m',
+            'merge it'
           ]);
         });
   });
@@ -38,7 +39,8 @@ describe('merge command', function() {
             'merge',
             '--no-ff',
             'develop',
-            '-m"merge it"'
+            '-m',
+            'merge it'
           ]);
         });
   });

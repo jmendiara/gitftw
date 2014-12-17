@@ -359,7 +359,8 @@ module.exports = function commonCommands(git) {
       'merge',
       options.noFF ? '--no-ff' : null,
       options.remote ? (options.remote + '/' + options.branch) : options.branch,
-      '-m"' + options.message + '"'
+      '-m',
+      options.message
     ];
 
     return git(args)
