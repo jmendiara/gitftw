@@ -136,26 +136,26 @@
 
 
     <section>
-        <article class="readme"><h1>gitftw - Git For The Workflows</h1>
-<p><a href="https://travis-ci.org/jmendiara/gitftw"><img src="https://travis-ci.org/jmendiara/gitftw.svg" alt="Build Status"></a>
-<a href="https://coveralls.io/r/jmendiara/gitftw"><img src="https://img.shields.io/coveralls/jmendiara/gitftw.svg" alt="Coverage Status"></a></p>
+        <article class="readme"><h1>gitftw - Git For The Workflows</h1><p><a href="http://badge.fury.io/js/gitftw"><img src="https://badge.fury.io/js/gitftw.svg" alt="npm version"></a>
+<a href="https://travis-ci.org/jmendiara/gitftw"><img src="https://travis-ci.org/jmendiara/gitftw.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/jmendiara/gitftw"><img src="https://img.shields.io/coveralls/jmendiara/gitftw.svg" alt="Coverage Status"></a>
+<a href="https://david-dm.org/jmendiara/gitftw"><img src="https://david-dm.org/jmendiara/gitftw.png" alt="Dependency Status"></a>
+<a href="https://david-dm.org/jmendiara/gitftw#info=devDependencies"><img src="https://david-dm.org/jmendiara/gitftw/dev-status.svg" alt="devDependency Status"></a></p>
 <p>Basic git commands wrapped in node for using in your workflows. This includes grunt, gulp,
 your custom scripts, CI, etc...</p>
-<h2>Basic Usage</h2>
-<pre><code class="lang-js">var git = require('gitftw');
+<p>http://jmendiara.github.io/gitftw/</p>
+<h2>Installation</h2><pre class="prettyprint source lang-sh"><code>npm install gitftw --save-dev</code></pre><h2>Basic Usage</h2><pre class="prettyprint source lang-js"><code>var git = require('gitftw');
 
 //Executes locally installed git with the parameters specified as an array
-// &gt; /usr/local/bin/tag 
+// > /usr/local/bin/git tag 
 git(['tag'], function(err, output) {
   if (err) {
     console.error('Command failed with code %d: %s', err.code, err.message);
     return;
   }
   console.log(output); // &quot;'v1.0.0\nv1.0.1\nv1.0.2'&quot; 
-});</code></pre>
-<h2>Commands</h2>
-<p>There are some basic commands implemented for you, in a workflow developer friendly way.</p>
-<pre><code class="lang-js">var git = require('gitftw');
+});</code></pre><h2>Commands</h2><p>There are some basic commands implemented for you, in a workflow developer friendly way.</p>
+<pre class="prettyprint source lang-js"><code>var git = require('gitftw');
 
 git.pull({
     remote: 'origin',
@@ -176,35 +176,30 @@ git.getTags(function (err, tags) {
   git.removeLocalTags({
       tags: tags
   }, cb);
-})</code></pre>
-<p>All the commands can take 2 parameters, an <em>optional</em> <code>options</code> literal object, 
+})</code></pre><p>All the commands can take 2 parameters, an <em>optional</em> <code>options</code> literal object, 
 and the <em>optional</em> callback. A literal object helps you having configurations 
 in a json, a grunt config,  etc... even in a function! (read below)</p>
-<p>More information on implemented commands, please refer to the documentation</p>
-<h2>Knowing what's happening under the hoods</h2>
-<p>Yes, it's important to see <em>wat</em> is doing an automated workflow. We have some
+<p>More information on implemented commands, please refer to the <a href="http://jmendiara.github.io/gitftw/git.html">documentation</a></p>
+<h2>Knowing what's happening under the hoods</h2><p>Yes, it's important to see <em>wat</em> is doing an automated workflow. We have some
 events for you.</p>
-<pre><code class="lang-js">var git = require('gitftw');
+<pre class="prettyprint source lang-js"><code>var git = require('gitftw');
 
 //Add a listener to the issued git command. Output it
 git.events.on('command', console.info);
 
-//Add a listener to the result of the git command. Output it with &gt; 
+//Add a listener to the result of the git command. Output it with > 
 git.events.on('result', function(res) {
-  console.log('&gt; ' + res.split('\n').join('\n&gt; '))
-});</code></pre>
-<h2>Sugar: Promises</h2>
-<p><code>git</code> and its commands have a <em>dual</em> API, both the node callback style you have seen
-in the examples, and the <code>promise</code> style. <a href="https://github.com/kriskowal/q">Q</a> is used internally as the promises library  </p>
-<pre><code class="lang-js">//removing all local tags
+  console.log('> ' + res.split('\n').join('\n> '))
+});</code></pre><h2>Sugar: Promises</h2><p><code>git</code> and its commands have a <em>dual</em> API, both the node callback style you have seen
+in the examples, and the <code>promise</code> style. <a href="https://github.com/petkaantonov/bluebird">Bluebird</a> is used internally as the promises library  </p>
+<pre class="prettyprint source lang-js"><code>//removing all local tags
 git.getTags()
   .tap(console.log) //['v1.0.0', 'v1.0.1', 'v1.0.2']
   .then(function (tags) {
     return git.removeLocalTags({
       tags: tags
     })
-  });</code></pre>
-<p>Having promises internally and <em>optionally</em> outside simplifies the development of 
+  });</code></pre><p>Having promises internally and <em>optionally</em> outside simplifies the development of 
 commands to manage concurrency when issuing <code>git</code> commands with a more functional style.</p>
 <p>Why concurrency matters? Not having concurrency accessing 
 the filesystem, where some commands can change its status, is very important for
@@ -213,8 +208,7 @@ We wanna make this tool for workflows as much predictable as possible. And the
 <code>resolvable</code> concept helps on both serialization and functional style development</p>
 <p><em>DISCLAIMER for node fan-boys</em>: frontenders are also developers. And are bored of your <code>if(err) return cb(err);</code> 
  verbose style. And I've always wanted to code something dual :) </p>
-<h2>Advanced usage: <em>Resolvables</em></h2>
-<p>You can use <code>resolvables</code> things when calling this library methods.
+<h2>Advanced usage: <em>Resolvables</em></h2><p>You can use <code>resolvables</code> things when calling this library methods.
 Resolvable is something that have invariant primitives, including all its properties, 
 now or in the future.</p>
 <p>Which things are <em>resolvables</em>?</p>
@@ -236,15 +230,13 @@ now or in the future.</p>
 the next one. Never in parallel. This avoids race conditions
 in your workflows while maintaining your code clean. </p>
 <p>It's easier than you think. The above <em>remove all tags</em> example with <strong>resolvables</strong>: </p>
-<pre><code class="lang-js">//removing all local tags
+<pre class="prettyprint source lang-js"><code>//removing all local tags
 git.removeLocalTags({
   tags: git.getTags //Command that returns a promise for an array of strings
-});</code></pre>
-<p><code>git.getTags</code>, as it's used as a function parameter, will be called, resolved and assigned
+});</code></pre><p><code>git.getTags</code>, as it's used as a function parameter, will be called, resolved and assigned
  before <code>git.removeLocalTags</code> gets called. </p>
 <p>Take a look to the tests.</p>
-<h2>License</h2>
-<p>MIT</p></article>
+<h2>License</h2><p>MIT</p></article>
     </section>
 
 
@@ -255,7 +247,7 @@ git.removeLocalTags({
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 23 2014 23:31:24 GMT+0100 (CET)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Wed Dec 17 2014 12:37:35 GMT+0100 (CET)
         </footer>
     </div>
 </div>

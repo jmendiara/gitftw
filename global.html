@@ -184,6 +184,131 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="isThenable">
+            
+            isThenable<span class="signature">(o)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{boolean}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="resolvable.js.html">resolvable.js</a>, <a href="resolvable.js.html#line60">line 60</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Returns true when an  object is a Promise-like one</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>o</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>The thing to test</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+
+<h5>Returns:</h5>
+when is promise-like, false otherwise
+<br />
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="spawnGit">
             
             spawnGit<span class="signature">(args, <span class="optional">cb</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
@@ -191,7 +316,7 @@
     
         
         <div class="tag-source">
-            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line69">line 69</a>
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line84">line 84</a>
         </div>
         
     </div>
@@ -387,7 +512,7 @@ git(['version']).then(console.log);</code></pre>
     
         
         <div class="tag-source">
-            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line215">line 215</a>
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line290">line 290</a>
         </div>
         
     </div>
@@ -532,7 +657,7 @@ git(['version']).then(console.log);</code></pre>
     
         
         <div class="tag-source">
-            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line213">line 213</a>
+            <a href="gitftw.js.html">gitftw.js</a>, <a href="gitftw.js.html#line215">line 215</a>
         </div>
         
     </div>
@@ -659,30 +784,30 @@ The execution promise
         
 
     
-    <pre class="prettyprint"><code> Creating a command
+    <pre class="prettyprint"><code>Creating a command
 
 var git = require('gitftw');
 
 //implement a command as a named function
 function doSomethingAwesome(options) {
-  //All properties in the options object are resolved here.
-  //read the docs about what an *optional* `resolvable` concept is
-  var resolvable = git.getCurrentBranch;
-  //issue a `git awesome master param`
-  return git(['awesome', resolvable, options.name])
-    .then(parseAwesomeCommandResult);
+ //All properties in the options object are resolved here.
+ //read the docs about what an *optional* `resolvable` concept is
+ var resolvable = git.getCurrentBranch;
+ //issue a `git awesome master param`
+ return git(['awesome', resolvable, options.name])
+   .then(parseAwesomeCommandResult);
 }
 
 //implement an optional command parsing
 function parseAwesomeCommandResult(res) {
-  var lines = res.split('\n');
-  if (lines[0] !== 'expected result') {
-    //feel free to throw. It will be catched by the
-    //promise engine and rejected or callbacked with err for you
-    throw new Error('unable to parse the awesome');
-  }
-  //If everything goes well, return the command output
-  return lines[1];
+ var lines = res.split('\n');
+ if (lines[0] !== 'expected result') {
+   //feel free to throw. It will be catched by the
+   //promise engine and rejected or callbacked with err for you
+   throw new Error('unable to parse the awesome');
+ }
+ //If everything goes well, return the command output
+ return lines[1];
 }
 
 //register a command
@@ -690,21 +815,21 @@ git.command(doSomethingAwesome);
 
 //Now it's available in the git module
 git.doSomethingAwesome({
- //available in the command implementation as options.name
- name: 'param'
+//available in the command implementation as options.name
+name: 'param'
 };</code></pre>
     
 
 
     
-    <pre class="prettyprint"><code> Creating commands in your module
+    <pre class="prettyprint"><code>Creating commands in your module
 //your custom commands in mycommands.js
 module.exports = function(git) {
-  //doSomethingAwesome is defined elsewhere
-  git.command(doSomethingAwesome);
+ //doSomethingAwesome is defined elsewhere
+ git.command(doSomethingAwesome);
 
-  //for chainable api: return git itself
-  return git;
+ //for chainable api: return git itself
+ return git;
 }
 
 //////
@@ -827,7 +952,7 @@ var resolvableObject = {
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 23 2014 23:31:24 GMT+0100 (CET)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Wed Dec 17 2014 12:37:35 GMT+0100 (CET)
         </footer>
     </div>
 </div>
