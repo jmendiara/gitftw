@@ -18,9 +18,10 @@ describe('commit command', function() {
           var call = mockSpawn.calls.pop();
           expect(call.args).to.be.eql([
             'commit',
-            '-m"cha"',
             '--amend',
-            '-n'
+            '-n',
+            '-m',
+            'cha'
           ]);
         });
   });
@@ -55,7 +56,8 @@ describe('commit command', function() {
           var call = mockSpawn.calls.pop();
           expect(call.args).to.be.eql([
             'commit',
-            '-m"cha"'
+            '-m',
+            'cha'
           ]);
         });
   });

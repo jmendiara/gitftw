@@ -85,9 +85,10 @@ module.exports = function commonCommands(git) {
 
     var args = [
       'commit',
-      '-m"' + options.message + '"',
       options.force ? '--amend' : null,
-      options.noVerify ? '-n' : null
+      options.noVerify ? '-n' : null,
+      options.message ? '-m' : null,
+      options.message ? options.message : null
     ];
 
     return git(args)
