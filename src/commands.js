@@ -460,8 +460,9 @@ module.exports = function commonCommands(git) {
     var args = [
       'tag',
       options.tag,
-      options.message ? '-m "' + options.message + '"' : null,
-      options.annotated ? '-a' : null
+      options.annotated ? '-a' : null,
+      options.message ? '-m' : null,
+      options.message ? options.message : null
     ];
 
     return git(args)
