@@ -1,5 +1,5 @@
 'use strict';
-var Q = require('q'),
+var Promise = require('bluebird'),
     git = require('../index');
 
 describe('Git commands execution', function() {
@@ -19,10 +19,10 @@ describe('Git commands execution', function() {
     mockSpawn.sequence.add(mockSpawn.simple(0));
     return git([
           'this',
-          Q.when('is'),
+          Promise.resolve('is'),
           function() { return 'sparta'},
           null,
-          function() { return Q.when('!') }
+          function() { return Promise.resolve('!') }
         ])
         .tap(function() {
           var call = mockSpawn.calls.pop();

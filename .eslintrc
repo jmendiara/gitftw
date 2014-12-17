@@ -4,7 +4,6 @@
   },
   "rules": {
     "no-use-before-define": [2, "nofunc"], //latedef in jshint
-    "new-cap": 0, //Q encourages using this pattern
     "quotes": [2, "single"]
   }
 }

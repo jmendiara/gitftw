@@ -4,7 +4,7 @@ var spawn = require('child_process').spawn,
     which = require('which').sync,
     assert = require('assert'),
     EventEmitter2 = require('eventemitter2').EventEmitter2,
-    Q = require('q'),
+    Promise = require('bluebird'),
     resolvable = require('./resolvable');
 
 /**
@@ -40,6 +40,21 @@ var events = new EventEmitter2();
 var gitCmd;
 
 /**
+ * Reads an stream
+ *
+ * @private
+ * @param {Stream} stream
+ * @returns {Promise} resolves with the value
+ */
+function readStream(stream) {
+  return new Promise(function(resolve) {
+    stream.pipe(concat(function(data) {
+      resolve(data.toString().trim());
+    }));
+  });
+}
+
+/**
  * Spawns a git process with the provider arguments
  * This function is called when you call directly the require of `gitftw`
  *
@@ -71,72 +86,59 @@ function spawnGit(args) {
   gitCmd = gitCmd || which('git');
   assert.ok(args, 'arguments to git is mandatory');
 
-  var defer = Q.defer();
+  return new Promise(function(resolve, reject) {
 
-  //Remove null values from the final git arguments
-  args = args.filter(function(arg) {
-    /*jshint eqnull:true */
-    return arg != null;
-  });
+    //Remove null values from the final git arguments
+    args = args.filter(function(arg) {
+      /*jshint eqnull:true */
+      return arg != null;
+    });
 
-  /**
-   * @name git#command
-   * @event
-   * @param {String} String the command issued
-   */
-  events.emit('command', [gitCmd].concat(args).join(' '));
-  var proc = spawn(gitCmd, args);
+    /**
+     * @name git#command
+     * @event
+     * @param {String} String the command issued
+     */
+    events.emit('command', [gitCmd].concat(args).join(' '));
+    var proc = spawn(gitCmd, args);
 
-  /**
-   * @name git#result
-   * @event
-   * @param {String} String the captured output
-   */
-  var stdoutP = Q.defer();
-  proc.stdout.pipe(concat(function(data) {
-    var stdout = data.toString().trim();
-    if (stdout) {
-      events.emit('result', stdout);
-    }
-    stdoutP.resolve(stdout);
-  }));
+    var output = Promise.join(readStream(proc.stdout), readStream(proc.stderr), function(stdout, stderr) {
+          //Some warnings (like code === 1) are in stdout
+          //fatal are in stderr. So try both
+          return stderr || stdout;
+        }).tap(function(output) {
+        /**
+         * @name git#result
+         * @event
+         * @param {String} String the captured output
+         */
+          events.emit('result', output);
+        });
 
-  var stderrP = Q.defer();
-  proc.stderr.pipe(concat(function(data) {
-    var stderr = data.toString().trim();
-    if (stderr) {
-      events.emit('result', stderr);
-    }
-    stderrP.resolve(stderr);
-  }));
+    proc.on('close', function(code) {
+      //Some weird behaviours can arise with stdout and stderr values
+      //cause writting to then is sync in *nix and async in windows.
+      //Also, excessive treatment or long outputs that cause a drain
+      //in the stderr & stdout streams, could lead us to having this proc
+      //closed (and this callback called), and no complete values captured
+      //in an eventual closure variable set then we emit the 'result' event
+      //So using promises solves this syncronization
+      output.then(function(output) {
+        if (code !== 0) {
+          var error = new Error('git exited with an error');
+          error.code = code;
+          error.output = output;
+          reject(error);
+        } else {
+          resolve(output);
+        }
+      });
+    });
 
-  proc.on('close', function(code) {
-    //Some weird behaviours can arise with stdout and stderr values
-    //cause writting to then is sync in *nix and async in windows.
-    //Also, excessive treatment or long outputs that cause a drain
-    //in the stderr & stdout streams, could lead us to having this proc
-    //closed (and this callback called), and no complete values captured
-    //in an eventual closure variable set then we emit the 'result' event
-    //So using promises solves this syncronization
-    Q.spread([stdoutP.promise, stderrP.promise], function(stdout, stderr) {
-      if (code !== 0) {
-        //Some warnings (like code === 1) are in stdout
-        //fatal are in stderr. So try both
-        var error = new Error('git exited with an error');
-        error.code = code;
-        error.output = stderr || stdout;
-        defer.reject(error);
-      } else {
-        defer.resolve(stdout);
-      }
+    proc.on('error', function(error) {
+      reject(new Error(error));
     });
   });
-
-  proc.on('error', function(error) {
-    defer.reject(new Error(error));
-  });
-
-  return defer.promise;
 }
 
 /**

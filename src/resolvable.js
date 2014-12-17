@@ -50,7 +50,16 @@
  * @typedef Resolvable
  */
 
-var Q = require('q');
+var Promise = require('bluebird');
+
+/**
+ * Returns true when an  object is a Promise-like one
+ * @param {*} o The thing to test
+ * @returns {boolean} true when is promise-like, false otherwise
+ */
+function isThenable(o) {
+  return o && typeof o.then === 'function';
+}
 
 /**
  * Resolves an array
@@ -68,7 +77,7 @@ function resolveArray(arg) {
             .then(function(value) {
               resolvedArray[index] = value;
             });
-      }, Q())
+      }, Promise.resolve())
       .then(function() {
         return resolvedArray;
       });
@@ -82,9 +91,6 @@ function resolveArray(arg) {
  * @returns {Promise} The resolved object
  */
 function resolveObject(arg) {
-  if (!arg) {
-    return Q(arg);
-  }
   var resolvedObject = {};
   return Object.keys(arg)
       .reduce(function(soFar, key) {
@@ -93,7 +99,7 @@ function resolveObject(arg) {
             .then(function(value) {
               resolvedObject[key] = value;
             });
-      }, Q())
+      }, Promise.resolve())
       .then(function() {
         return resolvedObject;
       });
@@ -111,23 +117,23 @@ function resolveItem(arg) {
     return resolveArray(arg);
   } else if (Object.prototype.toString.call(arg) === '[object Function]') {
     //is a function
-    return Q.fcall(arg).then(resolveItem);
-  } else if (Q.isPromiseAlike(arg)) {
+    return Promise.method(arg)().then(resolveItem);
+  } else if (isThenable(arg)) {
     //is a promise
-    return Q(arg).then(resolveItem);
+    return arg.then(resolveItem);
   } else if (arg && typeof arg === 'object') {
     //is an object
     if (typeof arg.toString === 'function') {
       var value = arg.toString();
       if (value !== '[object Object]') {
         //with a valid toString
-        return Q(value);
+        return Promise.resolve(value);
       }
     }
     return resolveObject(arg);
   } else {
     //Yeah! a value
-    return Q(arg);
+    return Promise.resolve(arg);
   }
 }
 
