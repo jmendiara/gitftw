@@ -1,6 +1,6 @@
 'use strict';
 
-var Q = require('q'),
+var Promise = require('bluebird'),
     resolvable = require('../src/resolvable');
 
 describe('Resolvable things', function() {
@@ -14,9 +14,9 @@ describe('Resolvable things', function() {
 
   var simpleObject = {
     string: 'string',
-    promise: Q.when('promise'),
+    promise: Promise.resolve('promise'),
     func: function() { return 'func' },
-    promiseFn: function() { return Q.when('promiseFn') }
+    promiseFn: function() { return Promise.resolve('promiseFn') }
   };
 
   var simpleArray =Object.keys(simpleObject)
@@ -26,13 +26,13 @@ describe('Resolvable things', function() {
 
   var resolvableObject = {
     string: 'string',
-    promise: Q.when('promise'),
+    promise: Promise.resolve('promise'),
     func: function() { return 'func'},
-    promiseFn: function() { return Q.when('promiseFn') },
+    promiseFn: function() { return Promise.resolve('promiseFn') },
     objFn: function() { return simpleObject },
     arrayFn: function() { return simpleArray },
-    resolvableFnObj: function() { return Q.when(simpleObject) },
-    resolvableFnArr: function() { return Q.when(simpleArray) },
+    resolvableFnObj: function() { return Promise.resolve(simpleObject) },
+    resolvableFnArr: function() { return Promise.resolve(simpleArray) },
     fnfn: function() { return function() { return 'fnfn'} },
     instance: new Obj(),
     nan: NaN,

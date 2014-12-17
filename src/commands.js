@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert'),
-    Q = require('q');
+    Promise = require('bluebird');
 
 /**
  *
@@ -180,7 +180,7 @@ module.exports = function commonCommands(git) {
           return soFar
               .then(gitFn(args))
               .then(silent);
-        }, Q());
+        }, Promise.resolve());
   }
 
   /**
@@ -527,7 +527,7 @@ module.exports = function commonCommands(git) {
               .then(gitFn(args))
               .catch(passWarning)
               .then(silent);
-        }, Q());
+        }, Promise.resolve());
   }
 
   /**
@@ -565,7 +565,7 @@ module.exports = function commonCommands(git) {
           return soFar
               .then(gitFn(args))
               .then(silent);
-        }, Q());
+        }, Promise.resolve());
   }
 
   /**
@@ -589,7 +589,7 @@ module.exports = function commonCommands(git) {
    * @returns {Promise} Promise Resolves with undefined
    */
   function removeTags(options) {
-    return Q()
+    return Promise.resolve()
         .then(git.removeLocalTags.bind(null, options))
         .then(git.removeRemoteTags.bind(null, options));
   }
@@ -624,7 +624,7 @@ function passWarning(err) {
     return err.output;
   }
 
-  return Q.reject(err);
+  return Promise.reject(err);
 }
 
 /**

@@ -1,5 +1,4 @@
-var Q = require('q'),
-    mockSpawn = require('mock-spawn'),
+var mockSpawn = require('mock-spawn'),
     proxyquire = require('proxyquire');
 
 

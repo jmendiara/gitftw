@@ -1,7 +1,7 @@
 'use strict';
 
 var git = require('../index'),
-    Q = require('q');
+    Promise = require('bluebird');
 
 describe('pull command', function() {
   var command = git.pull;
@@ -94,7 +94,7 @@ describe('pull command', function() {
 
   it('should get current branch when no branch/tag is specified', function() {
     var stub = sinon.stub(git, 'getCurrentBranch');
-    stub.returns(Q.when('currentone'));
+    stub.returns(Promise.resolve('currentone'));
     return command({})
         .tap(function() {
           var call = mockSpawn.calls.pop();
