@@ -86,7 +86,7 @@ git.events.on('result', function(res) {
 
 ## Sugar: Promises
 `git` and its commands have a *dual* API, both the node callback style you have seen
-in the examples, and the `promise` style. [Q](https://github.com/kriskowal/q) is used internally as the promises library  
+in the examples, and the `promise` style. [Bluebird](https://github.com/petkaantonov/bluebird) is used internally as the promises library  
 
 ```js
 //removing all local tags
