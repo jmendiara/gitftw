@@ -3,4 +3,4 @@ node_modules
 coverage
 out
 npm-debug.log
-./gh-pages
+gh-pages
