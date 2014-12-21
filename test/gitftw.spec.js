@@ -44,17 +44,31 @@ describe('Git commands execution', function() {
   it('should reject with stdout when git exits with 1', function() {
     mockSpawn.sequence.add(mockSpawn.simple(1, 'this is sparta!', ''));
     return git(['cha'])
-        .catch(function(err) {
+        .then(Promise.reject, function(err) {
           var call = mockSpawn.calls.pop();
           expect(err.code).to.be.eql(1);
           expect(err.output).to.be.eql('this is sparta!');
         });
   });
 
+  it('should make one call at a time', function() {
+    mockSpawn.sequence.add(mockSpawn.simple(0, 'First', ''));
+    mockSpawn.sequence.add(mockSpawn.simple(0, 'Second', ''));
+    var oneP = git(['one']),
+        twoP = git(['two']);
+    //TODO: Hard to test by instrospecting in mockSpawn.
+    //Checked by coverage passing
+    return Promise.all([oneP, twoP])
+        .spread(function(one, two) {
+          expect(one).to.be.eql('First');
+          expect(two).to.be.eql('Second');
+        });
+  });
+
   it('should reject with stderr when git fails', function() {
     mockSpawn.sequence.add(mockSpawn.simple(128, '', 'this is huesca!'));
     return git(['cha'])
-        .catch(function(err) {
+        .then(Promise.reject, function(err) {
           var call = mockSpawn.calls.pop();
           expect(err.code).to.be.eql(128);
           expect(err.output).to.be.eql('this is huesca!');
@@ -68,7 +82,7 @@ describe('Git commands execution', function() {
       cb();
     });
     return git(['cha'])
-        .catch(function(err) {
+        .then(Promise.reject, function(err) {
           expect(err).to.be.eql(error);
         });
   });

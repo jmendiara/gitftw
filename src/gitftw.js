@@ -37,7 +37,9 @@ var events = new EventEmitter2();
  * @private
  * @type {String}
  */
-var gitCmd;
+var gitCmd,
+    executionPromise,
+    executionCount = 0;
 
 /**
  * Reads an stream
@@ -51,6 +53,69 @@ function readStream(stream) {
     stream.pipe(concat(function(data) {
       resolve(data.toString().trim());
     }));
+  });
+}
+
+/**
+ * Creates a promise for a Git Execution
+ *
+ * @private
+ * @param {Resolvable|Array<String|null>} args The arguments to pass to git command
+ * @returns {Promise}
+ */
+function createGitCmdPromise(args) {
+  return new Promise(function(resolve, reject) {
+
+    //Remove null values from the final git arguments
+    args = args.filter(function(arg) {
+      /*jshint eqnull:true */
+      return arg != null;
+    });
+
+    /**
+     * @name git#command
+     * @event
+     * @param {String} String the command issued
+     */
+    events.emit('command', [gitCmd].concat(args).join(' '));
+    var proc = spawn(gitCmd, args);
+
+    var output = Promise.join(readStream(proc.stdout), readStream(proc.stderr), function(stdout, stderr) {
+      //Some warnings (like code === 1) are in stdout
+      //fatal are in stderr. So try both
+      return stderr || stdout;
+    }).tap(function(output) {
+      /**
+       * @name git#result
+       * @event
+       * @param {String} String the captured output
+       */
+      events.emit('result', output);
+    });
+
+    proc.on('close', function(code) {
+      //Some weird behaviours can arise with stdout and stderr values
+      //cause writting to then is sync in *nix and async in windows.
+      //Also, excessive treatment or long outputs that cause a drain
+      //in the stderr & stdout streams, could lead us to having this proc
+      //closed (and this callback called), and no complete values captured
+      //in an eventual closure variable set then we emit the 'result' event
+      //So using promises solves this syncronization
+      output.then(function(output) {
+        if (code !== 0) {
+          var error = new Error('git exited with an error');
+          error.code = code;
+          error.output = output;
+          reject(error);
+        } else {
+          resolve(output);
+        }
+      });
+    });
+
+    proc.on('error', function(error) {
+      reject(new Error(error));
+    });
   });
 }
 
@@ -86,58 +151,20 @@ function spawnGit(args) {
   gitCmd = gitCmd || which('git');
   assert.ok(args, 'arguments to git is mandatory');
 
-  return new Promise(function(resolve, reject) {
+  executionCount++;
+  if (executionPromise) {
+    executionPromise = executionPromise.then(
+        createGitCmdPromise.bind(null, args),
+        createGitCmdPromise.bind(null, args)
+    );
+  } else {
+    executionPromise = createGitCmdPromise(args);
+  }
 
-    //Remove null values from the final git arguments
-    args = args.filter(function(arg) {
-      /*jshint eqnull:true */
-      return arg != null;
-    });
-
-    /**
-     * @name git#command
-     * @event
-     * @param {String} String the command issued
-     */
-    events.emit('command', [gitCmd].concat(args).join(' '));
-    var proc = spawn(gitCmd, args);
-
-    var output = Promise.join(readStream(proc.stdout), readStream(proc.stderr), function(stdout, stderr) {
-          //Some warnings (like code === 1) are in stdout
-          //fatal are in stderr. So try both
-          return stderr || stdout;
-        }).tap(function(output) {
-        /**
-         * @name git#result
-         * @event
-         * @param {String} String the captured output
-         */
-          events.emit('result', output);
-        });
-
-    proc.on('close', function(code) {
-      //Some weird behaviours can arise with stdout and stderr values
-      //cause writting to then is sync in *nix and async in windows.
-      //Also, excessive treatment or long outputs that cause a drain
-      //in the stderr & stdout streams, could lead us to having this proc
-      //closed (and this callback called), and no complete values captured
-      //in an eventual closure variable set then we emit the 'result' event
-      //So using promises solves this syncronization
-      output.then(function(output) {
-        if (code !== 0) {
-          var error = new Error('git exited with an error');
-          error.code = code;
-          error.output = output;
-          reject(error);
-        } else {
-          resolve(output);
-        }
-      });
-    });
-
-    proc.on('error', function(error) {
-      reject(new Error(error));
-    });
+  return executionPromise.finally(function() {
+    if (--executionCount === 0) {
+      executionPromise = null;
+    }
   });
 }
 
