@@ -444,16 +444,14 @@ module.exports = function commonCommands(git) {
    *       } else {
    *         console.log('The git workspace is dirty');
    *       }
-   *     })
-   *     .catch(function() {
-   *       console.log('The git worspace is
    *     });
    *
    * @memberof git
    * @type {command}
    *
    * @param {callback} [cb] The execution callback result
-   * @returns {Promise} Promise Resolves with the current branch
+   * @returns {Promise} Promise Resolves with true if the workspace is clean.
+   *   false otherwise
    */
   function isClean() {
     var args = [
