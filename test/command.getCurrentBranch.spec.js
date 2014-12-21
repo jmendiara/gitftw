@@ -1,7 +1,8 @@
 'use strict';
 var git = require('../index');
 
-describe('fetch command', function() {
+//TODO:
+describe.skip('fetch command', function() {
   var command = git.fetch;
   
   it('should exists', function(){

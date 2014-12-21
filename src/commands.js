@@ -21,6 +21,7 @@ module.exports = function commonCommands(git) {
     merge,
     fetch,
     getCurrentBranch,
+    isClean,
     tag,
     getTags,
     removeLocalTags,
@@ -427,6 +428,51 @@ module.exports = function commonCommands(git) {
     ];
 
     return git(args);
+  }
+
+  /**
+   * Gets the current workspace is clean or has something in the working tree
+   * Executes `git diff-index --quiet HEAD .`
+   *
+   * @example
+   * var git = require('gitftw');
+   *
+   * git.isClean()
+   *     .then(function(clean) {
+   *       if (clean) {
+   *         console.log('The git workspace is clean');
+   *       } else {
+   *         console.log('The git workspace is dirty');
+   *       }
+   *     })
+   *     .catch(function() {
+   *       console.log('The git worspace is
+   *     });
+   *
+   * @memberof git
+   * @type {command}
+   *
+   * @param {callback} [cb] The execution callback result
+   * @returns {Promise} Promise Resolves with the current branch
+   */
+  function isClean() {
+    var args = [
+      'diff-index',
+      '--quiet',
+      'HEAD',
+      '.'
+    ];
+
+    return git(args)
+        .then(function() {
+          return true;
+        })
+        .catch(function(err) {
+          if (err.code === 1) {
+            return false;
+          }
+          return Promise.reject(err);
+        });
   }
 
   /**
