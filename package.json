@@ -1,6 +1,6 @@
 {
   "name": "gitftw",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Basic git commands wrapped in node for using in your workflows",
   "main": "index.js",
   "scripts": {

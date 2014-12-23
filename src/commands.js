@@ -21,6 +21,8 @@ module.exports = function commonCommands(git) {
     merge,
     fetch,
     getCurrentBranch,
+    removeLocalBranch,
+    removeRemoteBranch,
     isClean,
     tag,
     getTags,
@@ -260,6 +262,8 @@ module.exports = function commonCommands(git) {
    * @return {Promise} Resolves with undefined
    */
   function pull(options) {
+    options = options || {};
+
     var branchOrTag = options.branch || options.tag;
 
     var args = [
@@ -392,6 +396,7 @@ module.exports = function commonCommands(git) {
    * @returns {Promise} Promise Resolves with undefined
    */
   function fetch(options) {
+    options = options || {};
 
     var args = [
       'fetch',
@@ -428,6 +433,72 @@ module.exports = function commonCommands(git) {
     ];
 
     return git(args);
+  }
+
+  /**
+   * Removes a local branch
+   *
+   * @example
+   * var git = require('gitftw');
+   *
+   * //while in master...
+   * git.removeLocalBranch({
+   *   branch: 'master'
+   * });
+   *
+   * @memberof git
+   * @type {command}
+   *
+   * @param {Object} options The options object. All its properties are {@link Resolvable}
+   * @param {Resolvable|String} options.branch The branch name
+   * @param {Resolvable|Boolean} [options.force] force the delete (-D)
+   * @param {callback} [cb] The execution callback result
+   * @returns {Promise} Promise Resolves with undefined
+   */
+  function removeLocalBranch(options) {
+    assert.ok(options.branch, 'branch is mandatory');
+
+    var args = [
+      'branch',
+      options.force ? '-D' : '-d',
+      options.branch
+    ];
+
+    return git(args)
+        .then(silent);
+  }
+
+  /**
+   * Removes a remote branch
+   *
+   * @example
+   * var git = require('gitftw');
+   *
+   * //while in master...
+   * git.removeRemoteBranch({
+   *   branch: 'master'
+   * });
+   *
+   * @memberof git
+   * @type {command}
+   *
+   * @param {Object} options The options object. All its properties are {@link Resolvable}
+   * @param {Resolvable|String} options.branch The branch name
+   * @param {Resolvable|String} [options.remote="origin"] The remote ref where the branch will be removed
+   * @param {callback} [cb] The execution callback result
+   * @returns {Promise} Promise Resolves with undefined
+   */
+  function removeRemoteBranch(options) {
+    assert.ok(options.branch, 'branch is mandatory');
+
+    var args = [
+      'push',
+      options.remote || 'origin',
+      ':' + options.branch
+    ];
+
+    return git(args)
+        .then(silent);
   }
 
   /**
