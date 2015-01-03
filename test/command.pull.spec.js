@@ -20,9 +20,9 @@ describe('pull command', function() {
           var call = mockSpawn.calls.pop();
           expect(call.args).to.be.eql([
             'pull',
+            '--rebase',
             'upstream',
-            'master',
-            '--rebase'
+            'master'
           ]);
         });
   });

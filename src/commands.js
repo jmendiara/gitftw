@@ -230,7 +230,7 @@ module.exports = function commonCommands(git) {
 
   /**
    * Pulls a remote branch into the current one
-   * Executes `git pull origin master --rebase`
+   * Executes `git pull origin master`
    *
    * remote defaults to "origin", and don't follow configured refspecs
    * for the upstream
@@ -268,9 +268,9 @@ module.exports = function commonCommands(git) {
 
     var args = [
       'pull',
+      options.rebase ? '--rebase' : null,
       options.remote || 'origin',
-      branchOrTag || git.getCurrentBranch,
-      options.rebase ? '--rebase' : null
+      branchOrTag || git.getCurrentBranch
     ];
 
     return git(args)
