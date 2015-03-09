@@ -21,6 +21,8 @@ module.exports = function commonCommands(git) {
     merge,
     fetch,
     getCurrentBranch,
+    getRemoteBranches,
+    getLocalBranches,
     removeLocalBranch,
     removeRemoteBranch,
     isClean,
@@ -545,6 +547,66 @@ module.exports = function commonCommands(git) {
   }
 
   /**
+   * Gets all remote branches in a remote
+   * Executes `git ls-remote --heads origin`
+   *
+   * @example
+   * var git = require('gitftw');
+   *
+   * //remove local tags in 'origin'
+   * git.getRemoteBranches({
+   *   remote: 'upstream'
+   * });
+   *
+   * @memberof git
+   * @type {command}
+   *
+   * @param {Object} options The options object. All its properties are {@link Resolvable}
+   * @param {Resolvable|String} [options.remote="origin"] The remote ref to ask for branches
+   * @param {callback} [cb] The execution callback result
+   * @returns {Promise} Promise Resolves with Array<String>
+   */
+  function getRemoteBranches(options) {
+    options = options || {};
+    var args = [
+      'ls-remote',
+      '--heads',
+      options.remote || 'origin'
+    ];
+
+    return git(args)
+        .then(parseRemoteBranches);
+
+  }
+
+  /**
+   * Gets all local branches
+   * Executes ` git for-each-ref --format='%(refname:short)' refs/heads/`
+   *
+   * @example
+   * var git = require('gitftw');
+   *
+   * //remove local tags in 'origin'
+   * git.getLocalBranches();
+   *
+   * @memberof git
+   * @type {command}
+   *
+   * @param {callback} [cb] The execution callback result
+   * @returns {Promise} Promise Resolves with Array<String>
+   */
+  function getLocalBranches() {
+    var args = [
+      'for-each-ref',
+      '--format=\%(refname:short)',
+      'refs/heads/'
+    ];
+
+    return git(args)
+        .then(parseMultiline);
+  }
+
+  /**
    * Creates a git tag
    * Executes `git tag v1.0.0 -m "v1.0.0" -a`
    *
@@ -605,7 +667,7 @@ module.exports = function commonCommands(git) {
     ];
 
     return git(args)
-        .then(parseTags);
+        .then(parseMultiline);
   }
 
   /**
@@ -763,17 +825,41 @@ function parseVersion(str) {
 }
 
 /**
- * Parses the git tag command
+ * Parses multiline git result
  * @private
- * @param {Resolvable|String} str The 'git tag' command output
- * @returns {Array<String>} the git tags
+ * @param {String} str A multiline command output
+ * @returns {Array<String>} the single lines
  */
-function parseTags(str) {
+function parseMultiline(str) {
   if (!str) {
     return [];
   }
 
   return str.split(/\n/);
+}
+
+/**
+ * Parses ls-remote --heads
+ * @private
+ * @param {String} str The 'git ls-remote --heads origin' command output
+ * @returns {Array<String>} the remote branches
+ */
+function parseRemoteBranches(str) {
+  var res = [],
+      regex = /[\w]{40}\s+refs\/heads\/(.+)/g,
+      match;
+
+  while ((match = regex.exec(str)) != null) {
+    if (match.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
+    res.push(match[1]);
+  }
+
+  if (!res.length) {
+    throw new Error('Unable to parse ls-remote response', str);
+  }
+  return res;
 }
 
 /**
