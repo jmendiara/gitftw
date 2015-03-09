@@ -81,6 +81,10 @@
             
                 <li data-name="git.getCurrentBranch"><a href="git.html#getCurrentBranch">getCurrentBranch</a></li>
             
+                <li data-name="git.getLocalBranches"><a href="git.html#getLocalBranches">getLocalBranches</a></li>
+            
+                <li data-name="git.getRemoteBranches"><a href="git.html#getRemoteBranches">getRemoteBranches</a></li>
+            
                 <li data-name="git.getTags"><a href="git.html#getTags">getTags</a></li>
             
                 <li data-name="git.isClean"><a href="git.html#isClean">isClean</a></li>
@@ -291,7 +295,7 @@ git.events.on('result', function(res) {
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line173">line 173</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line175">line 175</a>
         </div>
         
     </div>
@@ -512,7 +516,7 @@ git.add({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line313">line 313</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line315">line 315</a>
         </div>
         
     </div>
@@ -876,7 +880,7 @@ git.checkout({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line134">line 134</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line136">line 136</a>
         </div>
         
     </div>
@@ -1465,7 +1469,7 @@ The gitftw module, for chainability
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line86">line 86</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line88">line 88</a>
         </div>
         
     </div>
@@ -1760,7 +1764,7 @@ git.commit({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line398">line 398</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line400">line 400</a>
         </div>
         
     </div>
@@ -2071,7 +2075,7 @@ git.fetch(); //fetches origin</code></pre>
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line428">line 428</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line430">line 430</a>
         </div>
         
     </div>
@@ -2208,6 +2212,387 @@ git.getCurrentBranch().then(console.log); //outputs 'master';</code></pre>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="getLocalBranches">
+            
+            <span class="type-signature static">static</span>git.getLocalBranches<span class="signature">(<span class="optional">cb</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line598">line 598</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Gets all local branches
+Executes <code>git for-each-ref --format='%(refname:short)' refs/heads/</code></p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#callback">callback</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>The execution callback result</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+
+<h5>Returns:</h5>
+Resolves with Array<String>
+<br />
+
+    
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>var git = require('gitftw');
+
+//remove local tags in 'origin'
+git.getLocalBranches();</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="getRemoteBranches">
+            
+            <span class="type-signature static">static</span>git.getRemoteBranches<span class="signature">(options, <span class="optional">cb</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line569">line 569</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Gets all remote branches in a remote
+Executes <code>git ls-remote --heads origin</code></p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>The options object. All its properties are <a href="global.html#Resolvable"><code>Resolvable</code></a></p>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>remote</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Resolvable">Resolvable</a></span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    "origin"
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>The remote ref to ask for branches</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#callback">callback</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>The execution callback result</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+
+<h5>Returns:</h5>
+Resolves with Array<String>
+<br />
+
+    
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>var git = require('gitftw');
+
+//remove local tags in 'origin'
+git.getRemoteBranches({
+  remote: 'upstream'
+});</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="getTags">
             
             <span class="type-signature static">static</span>git.getTags<span class="signature">(<span class="optional">cb</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
@@ -2215,7 +2600,7 @@ git.getCurrentBranch().then(console.log); //outputs 'master';</code></pre>
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line602">line 602</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line664">line 664</a>
         </div>
         
     </div>
@@ -2358,7 +2743,7 @@ git.getTags().then(console.log); //outputs ['v1.0.0', 'v1.0.1']</code></pre>
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line527">line 527</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line529">line 529</a>
         </div>
         
     </div>
@@ -2509,7 +2894,7 @@ git.isClean()
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line359">line 359</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line361">line 361</a>
         </div>
         
     </div>
@@ -2835,7 +3220,7 @@ git.merge({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line264">line 264</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line266">line 266</a>
         </div>
         
     </div>
@@ -2847,7 +3232,7 @@ git.merge({
     
     <div class="description">
         <p>Pulls a remote branch into the current one
-Executes <code>git pull origin master --rebase</code></p>
+Executes <code>git pull origin master</code></p>
 <p>remote defaults to &quot;origin&quot;, and don't follow configured refspecs
 for the upstream</p>
 <p>If both a branch and a tag are specified, the branch takes precedence</p>
@@ -3192,7 +3577,7 @@ git.pull()</code></pre>
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line217">line 217</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line219">line 219</a>
         </div>
         
     </div>
@@ -3544,7 +3929,7 @@ git.push(); //the current branch to `origin`</code></pre>
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line458">line 458</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line460">line 460</a>
         </div>
         
     </div>
@@ -3803,7 +4188,7 @@ git.removeLocalBranch({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line634">line 634</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line696">line 696</a>
         </div>
         
     </div>
@@ -4026,7 +4411,7 @@ git.removeLocalTags({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line491">line 491</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line493">line 493</a>
         </div>
         
     </div>
@@ -4297,7 +4682,7 @@ git.removeRemoteBranch({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line672">line 672</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line734">line 734</a>
         </div>
         
     </div>
@@ -4569,7 +4954,7 @@ git.removeRemoteTags({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line709">line 709</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line771">line 771</a>
         </div>
         
     </div>
@@ -4840,7 +5225,7 @@ git.removeTags({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line569">line 569</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line631">line 631</a>
         </div>
         
     </div>
@@ -5133,7 +5518,7 @@ git.tag({
     
         
         <div class="tag-source">
-            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line52">line 52</a>
+            <a href="commands.js.html">commands.js</a>, <a href="commands.js.html#line54">line 54</a>
         </div>
         
     </div>
@@ -5458,7 +5843,7 @@ git.version().then(console.log) //outputs 1.8.2.3</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Dec 23 2014 13:03:06 GMT+0100 (CET)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Mon Mar 09 2015 12:13:13 GMT+0100 (CET)
         </footer>
     </div>
 </div>
