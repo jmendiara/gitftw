@@ -3,7 +3,7 @@ var git = require('../index');
 
 describe('checkout command', function() {
   var command = git.checkout;
-  
+
   it('should exists', function(){
     expect(command).to.be.a('function');
   });
@@ -23,6 +23,23 @@ describe('checkout command', function() {
             '-f'
           ]);
         });
+  });
+
+  it('should issue a git checkout with old create', function() {
+    return command({
+      branch: 'develop',
+      oldCreate: true,
+      force: true
+    })
+      .tap(function() {
+        var call = mockSpawn.calls.pop();
+        expect(call.args).to.be.eql([
+          'checkout',
+          '-b',
+          'develop',
+          '-f'
+        ]);
+      });
   });
 
   it('should issue a git checkout with orphan', function() {
@@ -93,6 +110,17 @@ describe('checkout command', function() {
         })
         .catch(function(err) {
           expect(err).to.match(/create and orphan cannot be specified both together/);
+        });
+  });
+
+  it('should fail when both create and oldCreate', function() {
+    return command({
+          branch: 'develop',
+          create: true,
+          oldCreate: true
+        })
+        .catch(function(err) {
+          expect(err).to.match(/create and oldCreate cannot be specified both together/);
         });
   });
 

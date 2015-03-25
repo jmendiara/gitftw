@@ -305,6 +305,8 @@ module.exports = function commonCommands(git) {
    * @param {Resolvable|String} options.branch The branch to checkout
    * @param {Resolvable|String} [options.tag] The tag to checkout
    * @param {Resolvable|Boolean} [options.create] Try to create the branch (-B flag)
+   * @param {Resolvable|Boolean} [options.oldCreate] Try to create the branch (-b flag). Do
+   *  not use along with 'create'.
    * @param {Resolvable|Boolean} [options.orphan] Create an orphan branch (--orphan flag)
    * @param {Resolvable|Boolean} [options.force] When switching branches, proceed even if
    *  the index or the working tree differs from HEAD. This is used to throw
@@ -317,13 +319,17 @@ module.exports = function commonCommands(git) {
 
     assert.ok(branchOrTag, 'branch or tag is mandatory');
 
-    if (options.create && options.orphan) {
+    if ((options.create || options.oldCreate) && options.orphan) {
       throw new Error('create and orphan cannot be specified both together');
+    }
+
+    if (options.create && options.oldCreate) {
+      throw new Error('create and oldCreate cannot be specified both together');
     }
 
     var args = [
       'checkout',
-      options.create ? '-B' : null,
+      options.create ? '-B' : options.oldCreate ? '-b' : null,
       options.orphan ? '--orphan' : null,
       branchOrTag,
       options.force ? '-f' : null
