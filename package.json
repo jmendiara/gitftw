@@ -1,6 +1,6 @@
 {
   "name": "gitftw",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Basic git commands wrapped in node for using in your workflows",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,10 @@
     "url": "https://github.com/jmendiara/gitftw/issues"
   },
   "homepage": "http://jmendiara.github.io/gitftw/",
+  "author": "Javier Mendiara Cañardo <jmendiara@gmail.com> (http://about.me/jmendiara)",
+  "contributors": [
+    "Sergio Ruiz <serginator@gmail.com> (http://www.serginator.com)"
+  ],
   "engines": {
     "npm": ">=1.4.0",
     "node": ">=0.10"
