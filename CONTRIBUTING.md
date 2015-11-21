@@ -28,6 +28,6 @@ npm run doc
 
 6. Try to squash your commits (optional)
 
-7. Make a PR to the develop branch
+7. Make a PR to the master branch
 
 8. Thanks a lot!
