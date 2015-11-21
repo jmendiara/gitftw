@@ -9,6 +9,7 @@
     "doc": "rm -fR ./out ; jsdoc -c .jsdoc README.md",
     "lint": "jscs index.js src && eslint index.js src",
     "test": "mocha -R spec test/environment.js test/*.spec.js",
+    "release": "release-it --github.release --changelogCommand=\"git log --pretty=format:'* %s (%h)' --no-merges [REV_RANGE]\"",
     "prepublish": "npm run test && npm run lint"
   },
   "repository": {
@@ -54,6 +55,7 @@
     "mocha-lcov-reporter": "^1.0.0",
     "mock-spawn": "^0.2.6",
     "proxyquire": "^1.7.3",
+    "release-it": "^2.3.1",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0"
   }
