@@ -19,7 +19,7 @@ afterEach(function(){
 });
 
 //Mock calls to spawn in test
-global.mockSpawn = mockSpawn();
+global.mockSpawn = mockSpawn(false);
 proxyquire('../src/gitftw', {
   child_process: {
     spawn: global.mockSpawn

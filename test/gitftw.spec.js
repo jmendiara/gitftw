@@ -75,6 +75,14 @@ describe('Git commands execution', function() {
         });
   });
 
+  it('should resolve with stdout when there is both stderr and stdout but the code is 0', function() {
+    mockSpawn.sequence.add(mockSpawn.simple(0, 'this is sparta!', 'this is huesca!'));
+    return git(['cha'])
+        .then(function(res) {
+          expect(res).to.be.eql('this is sparta!');
+        });
+  });
+
   it('should reject with a mockSpawn error', function() {
     var error = new Error('ENOENT');
     mockSpawn.sequence.add(function (cb) {

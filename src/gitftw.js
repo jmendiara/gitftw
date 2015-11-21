@@ -83,7 +83,7 @@ function createGitCmdPromise(args) {
     var output = Promise.join(readStream(proc.stdout), readStream(proc.stderr), function(stdout, stderr) {
       //Some warnings (like code === 1) are in stdout
       //fatal are in stderr. So try both
-      return stderr || stdout;
+      return stdout || stderr;
     }).tap(function(output) {
       /**
        * @name git#result
